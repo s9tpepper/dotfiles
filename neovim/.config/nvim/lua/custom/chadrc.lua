@@ -20,6 +20,7 @@ M.mason = {
 
 M.ui = {
   theme = 'tokyonight',
+  transparency = true,
   hl_override = {
     CursorLine = {
       bg = "darker_black"
