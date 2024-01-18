@@ -1,23 +1,6 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.mason = {
-  ensure_installed = {
-    "js-debug-adapter",
-    "eslint-lsp",
-    "prettier",
-    "typescript-language-server",
-    "gopls",
-    "js-debug-adapter",
-    "json-lsp",
-    "lua-language-server",
-    "prettierd",
-    "python-lsp-server",
-    "tailwindcss-language-server",
-    "terraform-ls"
-  }
-}
-
 M.ui = {
   theme = 'tokyonight',
   transparency = true,
