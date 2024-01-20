@@ -97,11 +97,12 @@ local plugins = {
       },
     }
   },
-  {
-    dir = "~/projects/first-nvim-plugin",
-    dev = true,
-    lazy = false
-  },
+  -- Testing nvim plugin development
+  -- {
+  --   dir = "~/projects/first-nvim-plugin",
+  --   dev = true,
+  --   lazy = false
+  -- },
   {
     "tpope/vim-fugitive",
     lazy = false
@@ -114,12 +115,7 @@ local plugins = {
       -- trouble configurations go here
     },
     config = function ()
-      vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-      vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-      vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-      vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-      vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-      vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+      require("custom.configs.trouble")
     end
   },
   {
@@ -128,44 +124,9 @@ local plugins = {
     branch = "harpoon2",
     lazy = false,
     config = function ()
-      local harpoon = require("harpoon")
-      harpoon:setup({
-        settings = {
-          save_on_toggle = true,
-          save_on_ui_close = true,
-        }
-      })
-      vim.keymap.set("n", "<leader>a", function () harpoon:list():append() end, { desc = "Add file to Harpoon" })
-      vim.keymap.set("n", "<leader>H", function () harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Open Harpoon Window"})
-      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Open Harpoon File 1" })
-      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Open Harpoon File 2" })
-      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Open Harpoon File 3" })
-      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Open Harpoon File 4" })
-      vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end, { desc = "Open Harpoon File 5" })
-
-      -- Telescope Setup
-      local conf = require("telescope.config").values
-      local function toggle_telescope(harpoon_files)
-        local file_paths = {}
-        for _, item in ipairs(harpoon_files.items) do
-          table.insert(file_paths, item.value)
-        end
-
-        require("telescope.pickers").new({}, {
-          prompt_title = "Harpoon",
-          finder = require("telescope.finders").new_table({
-            results = file_paths
-          }),
-          previewer = conf.file_previewer({}),
-          sorter = conf.generic_sorter({}),
-        }):find()
-      end
-
-      vim.keymap.set("n", "<C-e>", function () toggle_telescope(harpoon:list()) end,
-        { desc = "Open Telescope Harpoon Window"}
-      )
+      require("custom.configs.harpoon")
     end
-  }
+  },
 }
 
 return plugins
