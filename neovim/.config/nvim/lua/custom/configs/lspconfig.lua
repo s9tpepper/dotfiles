@@ -32,3 +32,13 @@ lspconfig.tsserver.setup {
 lspconfig.gopls.setup {
   on_attach = on_attach,
 }
+
+lspconfig.groovyls.setup {
+  cmd = { "java", "-jar", "/Users/omargonzalez/.local/share/nvim/mason/packages/groovy-language-server/build/libs/groovy-language-server-all.jar" },
+  on_attach = on_attach,
+  filetypes = { "groovy", "Jenkinsfile" },
+  settings = {
+    groovy = {
+    }
+  }
+}
