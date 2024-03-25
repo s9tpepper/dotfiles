@@ -3,28 +3,28 @@ local M = {
     -- Disabled running prettier, configure via eslint using eslint-config-prettier
 
     javascript = {
-      require('formatter.filetypes.javascript').prettier,
+      require("formatter.filetypes.javascript").prettier
     },
     javascriptreact = {
-      require('formatter.filetypes.javascriptreact').prettier,
+      require("formatter.filetypes.javascriptreact").prettier
     },
     typescript = {
-      require('formatter.filetypes.typescript').prettier,
+      require("formatter.filetypes.typescript").prettier
     },
     typescriptreact = {
-      require('formatter.filetypes.typescriptreact').prettier,
+      require("formatter.filetypes.typescriptreact").prettier
     },
     -- json = {
     --   require("formatter.filetypes.json").prettier
     -- },
-    ['*'] = {
+    ["*"] = {
       -- require("formatter.filetypes.any").remove_trailing_whitespace
-    },
-  },
+    }
+  }
 }
 
-vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
-  command = 'FormatWriteLock',
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  command = "FormatWriteLock"
 })
 
 return M
