@@ -46,7 +46,7 @@ dap.configurations.rust = {
     stopOnEntry = false,
   },
   {
-    name = 'ratatatat-lldb',
+    name = 'tui-scrollview',
     type = 'lldb',
     request = 'launch',
     program = function()

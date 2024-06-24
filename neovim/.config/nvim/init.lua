@@ -234,7 +234,7 @@ local hl_group = 'Visual'
 vim.api.nvim_set_hl(0, hl_group, {
   bg = '#9900FF',
   fg = '#FFFF66',
-  reverse = true,
+  reverse = false,
   blend = 10,
   nocombine = false,
   bold = false,
@@ -336,7 +336,17 @@ local function setup_rustaceanvim(capabilities)
     end
 
     local cfg = require 'rustaceanvim.config'
+
     return {
+      tools = {
+        hover_actions = {
+          border = 'rounded',
+          replace_builtin_hover = false,
+        },
+        float_win_config = {
+          border = 'rounded',
+        },
+      },
       dap = {
         adapter = cfg.get_codelldb_adapter(codelldb_path, liblldb_path),
       },
@@ -346,19 +356,29 @@ local function setup_rustaceanvim(capabilities)
             check = {
               command = 'clippy',
             },
+
+            inlay_hint = true,
           },
         },
         capabilities = capabilities,
         on_attach = function(client, bufnr)
+          -- vim.g.rustaceanvim.tools.float_win_config.border = 'rounded'
+
           vim.keymap.set('n', '<leader>vca', function()
             vim.cmd.RustLsp 'codeAction'
           end, { buffer = bufnr, desc = 'Show code actions' })
-          vim.lsp.inlay_hint.enable(bufnr, true)
+
+          -- NOTE: These inlay_hint settings don't work for nvim 0.9
+          vim.lsp.inlay_hint.enable(true)
+
           vim.cmd.RustLsp 'renderDiagnostic'
 
           if client.server_capabilities.documentHighlightProvider then
             add_doc_highlighting(bufnr)
           end
+
+          vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'rounded' })
+          vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded' })
         end,
       },
     }
@@ -599,6 +619,19 @@ require('lazy').setup({
 
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
+    -- NOTE: this inlay_hint setting is not working either nvim 0.9
+    opts = {
+      inlay_hints = { enabled = true },
+      servers = {
+        lua_ls = {
+          settings = {
+            Lua = {
+              hint = { enable = true },
+            },
+          },
+        },
+      },
+    },
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for neovim
       'williamboman/mason.nvim',
@@ -608,6 +641,10 @@ require('lazy').setup({
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
       { 'j-hui/fidget.nvim', opts = {} },
+
+      -- Lua LSP configs for the Neovim config, runtime, and plugins for completion,
+      -- annotations, and signatures of Neovim apis
+      { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
       -- LSP servers and clients are able to communicate to each other what features they support.
@@ -690,9 +727,10 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('<leader>ca', function()
-            vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
-          end, '[C]ode [A]ction')
+          -- map('<leader>ca', function()
+          --   vim.lsp.buf.code_action { context = { only = { 'quickfix', 'refactor', 'source' } } }
+          -- end, '[C]ode [A]ction')
+          map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap
@@ -709,12 +747,19 @@ require('lazy').setup({
           -- Moved capabilities creation to top of this callback so it is available to all LSPs
           setup_rustaceanvim(capabilities)
 
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          -- Inlay Hints
+          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+            map('<leader>ih', function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+            end, 'Toggle [I]nlay [H]ints')
+          end
+
           -- NOTE: move this on a per LSP basis
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
           --
-
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
           --   buffer = event.buf,
@@ -754,6 +799,7 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local handlers = require 'custom.configs.handlers'
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -790,26 +836,67 @@ require('lazy').setup({
               description = 'Organize Imports',
             },
           },
+
+          -- NOTE: inlay hints settings for tsserver is causing errors and the inlays dont work
+          -- settings = {
+          --   typescript = {
+          --     inlayHints = {
+          --       includeInlayParameterNameHints = 'all',
+          --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          --       includeInlayFunctionParameterTypeHints = true,
+          --       includeInlayVariableTypeHints = true,
+          --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          --       includeInlayPropertyDeclarationTypeHints = true,
+          --       includeInlayFunctionLikeReturnTypeHints = true,
+          --       includeInlayEnumMemberValueHints = true,
+          --     },
+          --   },
+          --
+          --   javascript = {
+          --     inlayHints = {
+          --       includeInlayParameterNameHints = 'all',
+          --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+          --       includeInlayFunctionParameterTypeHints = true,
+          --       includeInlayVariableTypeHints = true,
+          --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
+          --       includeInlayPropertyDeclarationTypeHints = true,
+          --       includeInlayFunctionLikeReturnTypeHints = true,
+          --       includeInlayEnumMemberValueHints = true,
+          --     },
+          --   },
+          -- },
+        },
+
+        dockerls = {
+          filetypes = { 'Dockerfile' },
+          capabilities = capabilities,
         },
 
         groovyls = {
           cmd = { 'java', '-jar', '/Users/omargonzalez/.local/share/nvim/mason/packages/groovy-language-server/build/libs/groovy-language-server-all.jar' },
           filetypes = { 'groovy', 'Jenkinsfile' },
           capabilities = capabilities,
+          handlers = handlers,
           -- settings = {
           --   groovy = {},
           -- },
         },
 
         rust_analyzer = {
+          handlers = handlers,
           on_attach = function(client, bufnr)
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
             end
           end,
+
+          settings = {
+            inlay_hint = true,
+          },
         },
 
         lua_ls = {
+          handlers = handlers,
           on_attach = function(client, bufnr)
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
@@ -832,6 +919,7 @@ require('lazy').setup({
                 -- If lua_ls is really slow on your computer, you can try this instead:
                 -- library = { vim.env.VIMRUNTIME },
               },
+              hint = { enable = true },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
               -- diagnostics = { disable = { 'missing-fields' } },
             },
@@ -847,7 +935,7 @@ require('lazy').setup({
         'js-debug-adapter',
         'eslint-lsp',
         'prettier',
-        'typescript-language-server',
+        -- 'typescript-language-server',
         -- 'gopls',
         'js-debug-adapter',
         'json-lsp',
@@ -877,6 +965,7 @@ require('lazy').setup({
               local server = servers[server_name] or {}
               require('lspconfig')[server_name].setup {
                 cmd = server.cmd,
+                handlers = handlers,
                 settings = server.settings,
                 filetypes = server.filetypes,
                 -- This handles overriding only values explicitly passed
