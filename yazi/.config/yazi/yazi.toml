@@ -1,0 +1,12 @@
+[opener]
+edit = [
+	{ run = 'nvim "$@"', block = true },
+]
+
+# play = [
+# 	{ run = 'mpv "$@"', orphan = true, for = "unix" },
+# ]
+
+open = [
+	{ run = 'open "$@"', desc = "Open" },
+]
