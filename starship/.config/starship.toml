@@ -1,0 +1,203 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+
+# Use custom format
+# format = '''
+# [┌───────────────────>](bold green)
+# [│](bold green)$directory$rust$package
+# [└─>](bold green) '''
+
+
+
+# $username\
+
+format = """\
+[](fg:teal)\
+$username\
+[ ](fg:teal bg:blue)\
+$directory\
+[ ](fg:blue bg:peach)\
+$git_branch\
+$git_status\
+[ ](fg:peach bg:green)\
+$golang\
+$gradle\
+$nodejs\
+$rust\
+[ ](fg:green bg:sky)\
+$docker_context\
+[ ](fg:sky bg:#33658A)\
+[ ](fg:white bg:#33658A)\
+[ ](fg:#33658A)\
+$character"""
+
+right_format = """\
+[](fg:blue)\
+$kubernetes\
+"""
+
+palette = 'cat'
+
+# Disable the blank line at the start of the prompt
+# add_newline = false
+
+# Replace the '❯' symbol in the prompt with '➜'
+[character] # The name of the module we are configuring is 'character'
+# success_symbol = '[](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# success_symbol = '[󰁕󰅂](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# success_symbol = '[󰅂](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# success_symbol = '[󰔁󰅂](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+# success_symbol = '[󱐋](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+success_symbol = '[󰅂](bold green)' # The 'success_symbol' segment is being set to '➜' with the color 'bold green'
+vicmd_symbol = '[](bold green)' # The 'vicmd_symbol' segment is being set to '➜' with the color 'bold green'
+
+
+# 
+# You can also replace your username with a neat symbol like   or disable this
+# and use the os module below
+[username]
+show_always = false
+style_user = "fg:red bg:red"
+style_root = "fg:white bg:red"
+format = '[ $user ](fg:base bg:teal)'
+disabled = false
+
+# An alternative to the username module which displays a symbol that
+# represents the current operating system
+[os]
+style = "bg:#9A348E"
+disabled = true # Disabled by default
+
+[directory]
+style = "fg:base bg:blue"
+format = "[$path ]($style)"
+truncation_length = 1
+truncation_symbol = "…/"
+
+[kubernetes]
+disabled = false
+# style = "fg:white bg:#33658A"
+style = "fg:base bg:blue"
+format = '[$symbol$context( \($namespace\))]($style)'
+
+[git_branch]
+symbol = ""
+style = "fg:base bg:peach"
+format = '[ $symbol $branch ]($style)'
+
+[git_status]
+style = "fg:#FF0000 bg:peach"
+format = '[$all_status$ahead_behind ]($style)'
+
+# Here is how you can shorten some long paths by text replacement
+# similar to mapped_locations in Oh My Posh:
+# [directory.substitutions]
+# "Documents" = "󰈙 "
+# "Downloads" = " "
+# "Music" = " "
+# "Pictures" = " "
+
+# Keep in mind that the order matters. For example:
+# "Important Documents" = " 󰈙 "
+# will not be replaced, because "Documents" was already substituted before.
+# So either put "Important Documents" before "Documents" or use the substituted version:
+# "Important 󰈙 " = " 󰈙 "
+
+# [c]
+# symbol = " "
+# style = "bg:#86BBD8"
+# format = '[ $symbol ($version) ]($style)'
+#
+[docker_context]
+symbol = " "
+# style = "bg:#06969A"
+style = "fg:base bg:sky"
+format = '[ $symbol$context ]($style)'
+
+[elixir]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[elm]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[golang]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[gradle]
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[haskell]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[java]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[julia]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+
+[nodejs]
+symbol = ""
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[nim]
+symbol = "󰆥 "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[rust]
+symbol = ""
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[scala]
+symbol = " "
+format = '[ $symbol ($version) ](fg:base bg:green)'
+
+[time]
+disabled = false
+style = "fg:white bg:#33658A"
+time_format = "%r" # hour:minute format
+format = '[ $time ]($style)'
+
+
+# palette = 'cat'
+
+[palettes.cat]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+pink = "#f5c2e7"
+mauve = "#cba6f7"
+red = "#f38ba8"
+maroon = "#eba0ac"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+teal = "#94e2d5"
+sky = "#89dceb"
+sapphire = "#74c7ec"
+blue = "#89b4fa"
+lavender = "#b4befe"
+text = "#cdd6f4"
+subtext1 = "#bac2de"
+subtext0 = "#a6adc8"
+overlay2 = "#9399b2"
+overlay1 = "#7f849c"
+overlay0 = "#6c7086"
+surface2 = "#585b70"
+surface1 = "#45475a"
+surface0 = "#313244"
+base = "#1e1e2e"
+mantle = "#181825"
+crust = "#11111b"
+white = "#ffffff"
+
+
