@@ -41,7 +41,8 @@ config.cursor_blink_ease_out = "EaseOut"
 -- window customizations, remove title bar
 config.window_decorations = "RESIZE"
 
-config.term = "wezterm"
+-- NOTE: This is somehow breaking the key strokes in Wezterm on new M1 mac
+-- config.term = "wezterm"
 
 -- cursor
 config.default_cursor_style = "BlinkingBlock"

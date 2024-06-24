@@ -872,15 +872,15 @@ require('lazy').setup({
           capabilities = capabilities,
         },
 
-        groovyls = {
-          cmd = { 'java', '-jar', '/Users/omargonzalez/.local/share/nvim/mason/packages/groovy-language-server/build/libs/groovy-language-server-all.jar' },
-          filetypes = { 'groovy', 'Jenkinsfile' },
-          capabilities = capabilities,
-          handlers = handlers,
-          -- settings = {
-          --   groovy = {},
-          -- },
-        },
+        -- groovyls = {
+        --   cmd = { 'java', '-jar', '/Users/omargonzalez/.local/share/nvim/mason/packages/groovy-language-server/build/libs/groovy-language-server-all.jar' },
+        --   filetypes = { 'groovy', 'Jenkinsfile' },
+        --   capabilities = capabilities,
+        --   handlers = handlers,
+        --   -- settings = {
+        --   --   groovy = {},
+        --   -- },
+        -- },
 
         rust_analyzer = {
           handlers = handlers,
