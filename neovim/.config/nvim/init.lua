@@ -944,7 +944,7 @@ require('lazy').setup({
         'python-lsp-server',
         'tailwindcss-language-server',
         'terraform-ls',
-        'groovy-language-server',
+        -- 'groovy-language-server',
         'dockerls',
         -- 'rust-analyzer',
       })
