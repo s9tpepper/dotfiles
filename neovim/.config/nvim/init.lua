@@ -356,8 +356,6 @@ local function setup_rustaceanvim(capabilities)
             check = {
               command = 'clippy',
             },
-
-            inlay_hint = true,
           },
         },
         capabilities = capabilities,
@@ -367,9 +365,6 @@ local function setup_rustaceanvim(capabilities)
           vim.keymap.set('n', '<leader>vca', function()
             vim.cmd.RustLsp 'codeAction'
           end, { buffer = bufnr, desc = 'Show code actions' })
-
-          -- NOTE: These inlay_hint settings don't work for nvim 0.9
-          vim.lsp.inlay_hint.enable(true)
 
           vim.cmd.RustLsp 'renderDiagnostic'
 
@@ -621,7 +616,6 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     -- NOTE: this inlay_hint setting is not working either nvim 0.9
     opts = {
-      inlay_hints = { enabled = true },
       servers = {
         lua_ls = {
           settings = {
@@ -890,9 +884,7 @@ require('lazy').setup({
             end
           end,
 
-          settings = {
-            inlay_hint = true,
-          },
+          settings = {},
         },
 
         lua_ls = {
