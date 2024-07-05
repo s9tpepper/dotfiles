@@ -798,7 +798,6 @@ require('lazy').setup({
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
-        -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
         -- If you use something like typescript, where the tooling is as bad as the language,
@@ -884,7 +883,11 @@ require('lazy').setup({
             end
           end,
 
-          settings = {},
+          settings = {
+            check = {
+              command = 'clippy',
+            },
+          },
         },
 
         lua_ls = {
@@ -984,6 +987,7 @@ require('lazy').setup({
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
     dependencies = {
+      'onsails/lspkind.nvim',
       -- Snippet Engine & its associated nvim-cmp source
       {
         'L3MON4D3/LuaSnip',
@@ -1013,11 +1017,28 @@ require('lazy').setup({
     },
     config = function()
       -- See `:help cmp`
+
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
 
+      local lspkind = require 'lspkind'
+      lspkind.init {}
+
       cmp.setup {
+        formatting = {
+          fields = { 'abbr', 'menu', 'kind' },
+          expandable_indicator = true,
+          format = function(entry, vim_item)
+            local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 }(entry, vim_item)
+            local strings = vim.split(kind.kind, '%s', { trimempty = true })
+            kind.kind = ' ' .. (strings[1] or '') .. ' '
+            kind.menu = '    (' .. (strings[2] or '') .. ')'
+
+            return kind
+          end,
+        },
+
         snippet = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
