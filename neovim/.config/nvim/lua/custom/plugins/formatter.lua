@@ -1,8 +1,7 @@
 return {
-  "mhartington/formatter.nvim",
-  event = "VeryLazy",
-  opts = function ()
-    return require "custom.configs.formatter"
-  end
+  'mhartington/formatter.nvim',
+  event = 'VeryLazy',
+  opts = function()
+    return require 'custom.configs.formatter'
+  end,
 }
-

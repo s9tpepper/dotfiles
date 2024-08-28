@@ -14,11 +14,22 @@ local M = {
     typescriptreact = {
       require('formatter.filetypes.typescriptreact').prettier,
     },
+
+    php = {
+      function()
+        return {
+          exe = 'php-cs-fixer',
+          args = { 'fix', '--using-cache=no', '--quiet' },
+          stdin = false,
+        }
+      end,
+    },
+
     -- json = {
     --   require("formatter.filetypes.json").prettier
     -- },
     ['*'] = {
-      -- require("formatter.filetypes.any").remove_trailing_whitespace
+      require('formatter.filetypes.any').remove_trailing_whitespace,
     },
   },
 }

@@ -1,4 +1,5 @@
 return {
   'ckipp01/nvim-jenkinsfile-linter',
-  dependencies = { "nvim-lua/plenary.nvim" },
+  lazy = true,
+  dependencies = { 'nvim-lua/plenary.nvim' },
 }
