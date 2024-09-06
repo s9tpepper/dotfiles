@@ -1067,6 +1067,12 @@ require('lazy').setup({
             -- Skip rust_analyzer to rustaceanvim can do its thing
             if server_name ~= 'rust_analyzer' then
               local server = servers[server_name] or {}
+
+              -- TODO: Remove this once ts_ls is updated in lspconfig
+              if server_name == 'tsserver' then
+                server_name = 'ts_ls'
+              end
+
               require('lspconfig')[server_name].setup {
                 cmd = server.cmd,
                 handlers = handlers,
