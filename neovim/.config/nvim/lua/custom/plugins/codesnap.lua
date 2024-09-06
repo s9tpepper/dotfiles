@@ -9,6 +9,10 @@ return {
   opts = {
     save_path = '~/Pictures',
     has_breadcrumbs = true,
-    bg_theme = 'bamboo',
+    code_font_family = 'BerkeleyMono Nerd Font Mono',
+    has_line_number = true,
+    bg_x_padding = 60,
+    bg_y_padding = 60,
+    bg_theme = 'grape',
   },
 }
