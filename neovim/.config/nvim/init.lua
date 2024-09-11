@@ -1023,6 +1023,17 @@ require('lazy').setup({
             },
           },
         },
+
+        graphql = {
+          handlers = handlers,
+          capabilities = capabilities,
+          filetypes = { 'graphql', 'graphqlschema', 'ts', 'tsx', 'typescript', 'typescriptreact' },
+          on_attach = function(client, bufnr)
+            if client.server_capabilities.documentHighlightProvider then
+              add_doc_highlighting(bufnr)
+            end
+          end,
+        },
       }
 
       -- You can add other tools here that you want Mason to install
@@ -1038,6 +1049,7 @@ require('lazy').setup({
         -- 'gopls',
         'js-debug-adapter',
         'json-lsp',
+        'graphql-language-service-cli',
         'lua-language-server',
         'prettierd',
         'python-lsp-server',
