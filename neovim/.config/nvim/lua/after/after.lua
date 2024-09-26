@@ -15,3 +15,6 @@ vim.cmd [[
   "   " autocmd ColorScheme * highlight link @punctuation.bracket.php NONE
   " augroup END
 ]]
+
+vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up' })
+vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down' })
