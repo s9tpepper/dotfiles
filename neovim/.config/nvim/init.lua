@@ -813,7 +813,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- If you only have simple needs for typescript, then you can probably just use tsserver
-        tsserver = {
+        ts_ls = {
           on_attach = function(client, bufnr)
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
@@ -936,6 +936,18 @@ require('lazy').setup({
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
             end
+
+            -- vim.cmd [[
+            --   highlight link @punctuation.bracket.php NONE
+            --   highlight @punctuation.bracket.php guifg=NONE ctermfg=NONE
+            --
+            --   highlight PhpTagCustom guifg=#ff77ff ctermfg=red
+            --   syntax match PhpTagCustom "<?php" containedin=phpRegion
+            --   syntax keyword PhpTagCustom "<?php"
+            --   autocmd FileType php syntax match PhpTagCustom "<?php"
+            -- ]]
+            --
+            -- print 'on_attach triggered and settings applied'
           end,
           settings = {
             intelephense = {
@@ -1079,11 +1091,6 @@ require('lazy').setup({
             -- Skip rust_analyzer to rustaceanvim can do its thing
             if server_name ~= 'rust_analyzer' then
               local server = servers[server_name] or {}
-
-              -- TODO: Remove this once ts_ls is updated in lspconfig
-              if server_name == 'tsserver' then
-                server_name = 'ts_ls'
-              end
 
               require('lspconfig')[server_name].setup {
                 cmd = server.cmd,
@@ -1314,6 +1321,7 @@ require('lazy').setup({
           'groovy',
           'xml',
           'yaml',
+          'php',
         },
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = true,
@@ -1358,3 +1366,6 @@ require('lazy').setup({
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+--
+
+require 'after.after'
