@@ -174,8 +174,9 @@ alt-shift-x = 'move-node-to-workspace X'
 alt-shift-y = 'move-node-to-workspace Y'
 alt-shift-z = 'move-node-to-workspace Z'
 
+
 # Maximize/full-screen window
-alt-shift-f = 'fullscreen'
+# alt-shift-f = 'fullscreen'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
 alt-tab = 'workspace-back-and-forth'
@@ -208,3 +209,11 @@ run = "move-node-to-workspace T"
 [[on-window-detected]]
 if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace B"
+
+[workspace-to-monitor-force-assignment]
+1 = [ '^built-in retina display', 'V3L6W' ]
+2 = [ '^built-in retina display', 'V3L6W' ]
+3 = [ '^built-in retina display', 'V3L6W' ]
+B = [ 'V3L6W', '^built-in retina display' ]
+T = [ 'V3L6W', '^built-in retina display' ]
+N = [ 'V3L6W', '^built-in retina display' ]
