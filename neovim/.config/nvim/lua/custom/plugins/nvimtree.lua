@@ -12,7 +12,11 @@ return {
       filters = {
         dotfiles = false,
       },
+      view = {
+        side = 'right',
+      },
     }
+
     vim.keymap.set('n', '<leader>t', '<Cmd>NvimTreeToggle<CR>')
   end,
 }
