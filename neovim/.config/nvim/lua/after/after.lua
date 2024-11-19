@@ -18,3 +18,9 @@ vim.cmd [[
 
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down' })
+
+-- Customize gutter to use symbols, absolute line numbers, and relative line numbers
+vim.o.statuscolumn = '%s %l %r'
+
+-- Adjust the width of the number column
+vim.opt.numberwidth = 7 -- Default is 4. Increase for more padding.
