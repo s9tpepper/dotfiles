@@ -649,6 +649,8 @@ require('lazy').setup({
       { 'folke/neodev.nvim', opts = {} },
     },
     config = function()
+      -- NOTE: Customizations to lspconfig here:
+
       -- LSP servers and clients are able to communicate to each other what features they support.
       --  By default, Neovim doesn't support everything that is in the LSP Specification.
       --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
@@ -761,6 +763,8 @@ require('lazy').setup({
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
+          -- This was in the Kickstart.nvim init.lua and I had to move it to be
+          -- applied on a per LSP basis
           --
           -- When you move your cursor, the highlights will be cleared (the second autocommand).
           -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -801,7 +805,11 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
-      local handlers = require 'custom.configs.handlers'
+
+      -- NOTE: This was coming from a handlers.lua config in custom.configs.handlers
+      -- but the borders were working without it so I removed the file
+      local handlers = {}
+
       local servers = {
         -- clangd = {},
         -- gopls = {},
@@ -814,6 +822,7 @@ require('lazy').setup({
         --
         -- If you only have simple needs for typescript, then you can probably just use tsserver
         ts_ls = {
+          handlers = handlers,
           on_attach = function(client, bufnr)
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
@@ -936,18 +945,6 @@ require('lazy').setup({
             if client.server_capabilities.documentHighlightProvider then
               add_doc_highlighting(bufnr)
             end
-
-            -- vim.cmd [[
-            --   highlight link @punctuation.bracket.php NONE
-            --   highlight @punctuation.bracket.php guifg=NONE ctermfg=NONE
-            --
-            --   highlight PhpTagCustom guifg=#ff77ff ctermfg=red
-            --   syntax match PhpTagCustom "<?php" containedin=phpRegion
-            --   syntax keyword PhpTagCustom "<?php"
-            --   autocmd FileType php syntax match PhpTagCustom "<?php"
-            -- ]]
-            --
-            -- print 'on_attach triggered and settings applied'
           end,
           settings = {
             intelephense = {
