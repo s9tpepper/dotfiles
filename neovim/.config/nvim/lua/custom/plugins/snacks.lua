@@ -13,7 +13,6 @@ return {
     input = { enabled = true },
     notifier = { enabled = true },
     quickfile = { enabled = true },
-    scroll = { enabled = true },
     statuscolumn = { enabled = false }, -- disabled statuscolumn settings
     words = { enabled = true },
 
@@ -32,6 +31,22 @@ return {
         selectedLineBgColor = { bg = 'MatchParen' },
         unstagedChangesColor = { fg = 'DiagnosticError' },
       },
+    },
+    scroll = {
+      enabled = true,
+      animate = {
+        duration = { step = 15, total = 200 },
+        easing = 'outCirc',
+      },
+      spamming = 10, -- threshold for spamming detection
+      -- what buffers to animate
+      filter = function(buf)
+        return vim.g.snacks_scroll ~= false and vim.b[buf].snacks_scroll ~= false and vim.bo[buf].buftype ~= 'terminal'
+      end,
+    },
+
+    dim = {
+      enabled = true,
     },
   },
 
@@ -85,6 +100,27 @@ return {
         Snacks.zen()
       end,
       desc = 'Toggle Zen mode',
+    },
+    {
+      '<leader>wj',
+      function()
+        Snacks.words.jump(1, true)
+      end,
+      desc = 'Jump to next LSP reference',
+    },
+    {
+      '<leader>wc',
+      function()
+        Snacks.words.clear()
+      end,
+      desc = 'Clear word reference',
+    },
+    {
+      '<leader>js',
+      function()
+        Snacks.scope.jump()
+      end,
+      desc = 'Jump around based on scope',
     },
   },
 }
