@@ -1,7 +1,11 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
-  opts = {},
+  opts = {
+    notify = {
+      merge = true,
+    },
+  },
   dependencies = {
     'MunifTanjim/nui.nvim',
     'rcarriga/nvim-notify',
