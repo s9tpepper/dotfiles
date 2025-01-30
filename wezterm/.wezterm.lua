@@ -34,7 +34,8 @@ config.window_background_opacity = 0.92
 -- config.window_background_opacity = 1
 
 -- cursor settings
-config.cursor_blink_rate = 800
+config.cursor_blink_rate = 300
+config.default_cursor_style = "BlinkingBlock"
 config.cursor_blink_ease_in = "EaseIn"
 config.cursor_blink_ease_out = "EaseOut"
 
@@ -43,9 +44,5 @@ config.window_decorations = "RESIZE"
 
 -- NOTE: This is somehow breaking the key strokes in Wezterm on new M1 mac
 -- config.term = "wezterm"
-
--- cursor
-config.default_cursor_style = "BlinkingBlock"
-config.cursor_blink_rate = 300
 
 return config
