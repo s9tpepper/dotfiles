@@ -79,14 +79,14 @@ return {
   -- -- Change Visual mode selected text color
   -- local hl_group = 'Visual'
   vim.api.nvim_set_hl(0, 'Visual', {
-    fg = '#9900FF',
-    bg = '#FFFF66',
+    -- fg = '#9900FF',
+    -- bg = '#FFFF66',
+    fg = '#ffff89',
+    bg = '#222222',
     reverse = true,
     blend = 10,
     nocombine = false,
     bold = false,
-    ctermfg = 'black',
-    ctermbg = 'yellow',
     standout = false,
     italic = false,
   }),

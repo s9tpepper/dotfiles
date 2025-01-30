@@ -25,6 +25,14 @@ vim.o.statuscolumn = '%s %l %r'
 -- Adjust the width of the number column
 vim.opt.numberwidth = 7 -- Default is 4. Increase for more padding.
 
+local aml_opts = {
+  pattern = '*.aml',
+  callback = function()
+    vim.cmd 'setfiletype anathema'
+  end,
+}
+vim.api.nvim_create_autocmd('BufReadPost', aml_opts)
+
 -- Pad line numbers with spaces for right alignment
 -- vim.opt.relativenumber = true
 -- vim.opt.number = true

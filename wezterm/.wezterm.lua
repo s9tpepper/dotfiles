@@ -29,7 +29,7 @@ config.show_tabs_in_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 
 -- window background
-config.window_background_opacity = 0.92
+config.window_background_opacity = 0.90
 -- config.window_background_opacity = 0.86
 -- config.window_background_opacity = 1
 
