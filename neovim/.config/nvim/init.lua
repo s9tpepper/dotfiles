@@ -232,9 +232,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- TODO: Figure out why this doesn't work here, but works in catppuccin config
 local hl_group = 'Visual'
 vim.api.nvim_set_hl(0, hl_group, {
-  bg = '#9900FF',
-  fg = '#FFFF66',
+  -- bg = '#9900FF',
+  -- fg = '#FFFF66',
+  bg = '#ffff88',
+  fg = '#222222',
   reverse = false,
+
   blend = 10,
   nocombine = false,
   bold = false,
@@ -1083,6 +1086,8 @@ require('lazy').setup({
       require('mason').setup()
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
       require('mason-lspconfig').setup {
+        ensure_installed = {},
+        automatic_installation = true,
         handlers = {
           function(server_name)
             -- Skip rust_analyzer to rustaceanvim can do its thing
