@@ -117,15 +117,15 @@ greetings
 bindkey -v
 
 # Autosuggestions
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+command -v brew >/dev/null 2>&1 && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+LINUX_ZSH_AUTOSUGG_PATH="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -s "$LINUX_ZSH_AUTOSUGG_PATH" ] && source "$LINUX_ZSH_AUTOSUGG_PATH"
 
 
-
-
-
-
-
-
+# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+source ~/.zprofile
