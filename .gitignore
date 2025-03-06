@@ -1,3 +1,14 @@
 .DS_Store
 min.lua
 
+# Ignore tmux plugins except catppuccin status line
+# catppuccin updated and it broke the config, will
+# need to spend time to update to newest catppuccin
+# plugin, which is in a plugin folder called "tmux"
+# I don't know why it's in a folder called "tmux"
+tmux/.tmux/plugins/tmux-continuum/
+tmux/.tmux/plugins/tmux-resurrect/
+tmux/.tmux/plugins/tmux-sensible/
+tmux/.tmux/plugins/tmux-yank/
+tmux/.tmux/plugins/tpm/
+tmux/.tmux/plugins/vim-tmux-navigator/
