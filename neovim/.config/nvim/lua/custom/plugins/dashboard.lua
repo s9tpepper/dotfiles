@@ -25,6 +25,7 @@ return {
         week_header = {
           enable = false,
         },
+        footer = {},
       },
     }
   end,
