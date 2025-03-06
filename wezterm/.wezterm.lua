@@ -7,8 +7,14 @@ config.colors = {
 	background = "black",
 }
 
-config.font = wezterm.font("BerkeleyMono Nerd Font Mono")
-config.font_size = 18.0
+config.font = wezterm.font_with_fallback({
+	{ family = "BerkeleyMono Nerd Font Mono" },
+	{ family = "JetBrains Mono" },
+	{ family = "Roboto" },
+	{ family = "Berkeley Mono" },
+})
+config.font_size = 14.0
+config.line_height = 1
 
 config.freetype_load_target = "Normal"
 
@@ -44,5 +50,7 @@ config.window_decorations = "RESIZE"
 
 -- NOTE: This is somehow breaking the key strokes in Wezterm on new M1 mac
 -- config.term = "wezterm"
+
+config.enable_wayland = false
 
 return config
