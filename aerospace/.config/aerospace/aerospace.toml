@@ -223,9 +223,9 @@ if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace B"
 
 [workspace-to-monitor-force-assignment]
-1 = [ '^built-in retina display', 'V3L6W' ]
-2 = [ '^built-in retina display', 'V3L6W' ]
-3 = [ '^built-in retina display', 'V3L6W' ]
-B = [ 'V3L6W', '^built-in retina display' ]
-T = [ 'V3L6W', '^built-in retina display' ]
-N = [ 'V3L6W', '^built-in retina display' ]
+1 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
+2 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
+3 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
+B = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
+T = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
+N = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
