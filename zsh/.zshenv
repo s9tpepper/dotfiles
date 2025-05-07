@@ -18,4 +18,7 @@ export DATABASE_URL=sqlite:///mnt/nas/documents/stream/database/intros.db
 # Arch Dark Mode
 export GTK_THEME=Adwaita:dark
 export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
-export QT_STYLE_OVERRIDE=Adwaita-Dark
+
+# export QT_STYLE_OVERRIDE=Adwaita-Dark
+export QT_QPA_PLATFORMTHEME=qt5ct
+export GODOT4_BIN=$(which godot)
