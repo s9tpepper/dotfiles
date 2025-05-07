@@ -177,11 +177,8 @@ vim.api.nvim_create_autocmd('BufReadPost', aml_opts)
 -- })
 --
 -- print 'Absolute line numbers loaded'
---
---
---
---
---
+
+-- Ignore Rust Analyzer's warnings about cancelled diagnostics
 for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
   local default_diagnostic_handler = vim.lsp.handlers[method]
   vim.lsp.handlers[method] = function(err, result, context, config)

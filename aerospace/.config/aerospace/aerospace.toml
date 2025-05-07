@@ -67,7 +67,7 @@ inner.vertical =   10
 outer.left =       10
 outer.bottom =     10
 # Make the top gap bigger on the monitor with the name 'V3L6W' so that it plays nice with sketchybar
-outer.top =        [{ monitor."V3L6W" = 50 }, 10]
+outer.top =        [{ monitor."V3L6W" = 50 }, {  monitor."ASUS PB287Q" = 50 }, { monitor."Built-in Display" = 50 }, 10]
 outer.right =      10
 
 # 'main' binding mode declaration
@@ -223,9 +223,9 @@ if.app-id = 'com.google.Chrome'
 run = "move-node-to-workspace B"
 
 [workspace-to-monitor-force-assignment]
-1 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
-2 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
-3 = [ '^built-in retina display', 'Built-in Display', 'V3L6W' ]
-B = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
-T = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
-N = [ 'V3L6W', '^built-in retina display', 'Built-in Display' ]
+1 = [ '^built-in retina display', 'Built-in Display', 'V3L6W', 'ASUS PB287Q' ]
+2 = [ '^built-in retina display', 'Built-in Display', 'V3L6W', 'ASUS PB287Q' ]
+3 = [ '^built-in retina display', 'Built-in Display', 'V3L6W', 'ASUS PB287Q' ]
+B = [ 'V3L6W', 'ASUS PB287Q', '^built-in retina display', 'Built-in Display' ]
+T = [ 'V3L6W', 'ASUS PB287Q', '^built-in retina display', 'Built-in Display' ]
+N = [ 'V3L6W', 'ASUS PB287Q', '^built-in retina display', 'Built-in Display' ]
