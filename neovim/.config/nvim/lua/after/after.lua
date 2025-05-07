@@ -19,11 +19,46 @@ vim.cmd [[
 vim.keymap.set('n', '<C-u>', '<C-u>zz', { desc = 'Half page up' })
 vim.keymap.set('n', '<C-d>', '<C-d>zz', { desc = 'Half page down' })
 
--- Customize gutter to use symbols, absolute line numbers, and relative line numbers
-vim.o.statuscolumn = '%s %l %r'
+-- vim.o.numberwidth = 7 -- Set number column width to 7 characters
+-- vim.o.statuscolumn = '%s %l %r'
 
--- Adjust the width of the number column
-vim.opt.numberwidth = 7 -- Default is 4. Increase for more padding.
+vim.o.number = true
+vim.o.relativenumber = true
+
+vim.api.nvim_set_hl(0, 'StatusColumnLineNr', { fg = '#585b70', bg = 'NONE' })
+vim.api.nvim_set_hl(0, 'StatusColumnLineNrCursor', { fg = '#f9e2af', bg = 'Black', reverse = true })
+
+vim.o.statuscolumn = table.concat {
+  '%@SignCb@', -- Clickable sign column
+  '%s', -- Sign column
+  '%=', -- Right align
+
+  -- Absolute line number (current line)
+  '%#StatusColumnLineNrCursor#',
+  "%{v:virtnum == 0 ? (v:lnum == line('.') ? v:lnum : '') : ''}",
+
+  -- Absolute line number (non-current line)
+  '%#StatusColumnLineNr#',
+  "%{v:virtnum == 0 ? (v:lnum == line('.') ? '' : v:lnum) : ''}",
+
+  -- Padding space (current line)
+  '%#StatusColumnLineNrCursor#',
+  "%{v:virtnum == 0 ? (v:relnum == 0 ? ' ' : '') : ''}",
+
+  -- Padding space (non-current line)
+  '%#StatusColumnLineNr#',
+  "%{v:virtnum == 0 ? (v:relnum == 0 ? '' : ' ') : ''}",
+
+  -- Relative line number (current line)
+  '%#StatusColumnLineNrCursor#',
+  "%-2{v:virtnum == 0 ? (v:relnum == 0 ? v:relnum : '') : ''}",
+
+  -- Relative line number (non-current line)
+  '%#StatusColumnLineNr#',
+  "%-2{v:virtnum == 0 ? (v:relnum == 0 ? '' : v:relnum) : ''}",
+
+  '│ ', -- Separator
+}
 
 local aml_opts = {
   pattern = '*.aml',
@@ -147,3 +182,13 @@ vim.api.nvim_create_autocmd('BufReadPost', aml_opts)
 --
 --
 --
+for _, method in ipairs { 'textDocument/diagnostic', 'workspace/diagnostic' } do
+  local default_diagnostic_handler = vim.lsp.handlers[method]
+  vim.lsp.handlers[method] = function(err, result, context, config)
+    if err ~= nil and err.code == -32802 then
+      return
+    end
+
+    return default_diagnostic_handler(err, result, context, config)
+  end
+end
