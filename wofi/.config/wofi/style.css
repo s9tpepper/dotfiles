@@ -1,0 +1,112 @@
+* {
+  box-shadow: none;
+  border: none;
+  font-size: 40px;
+  font-family: BerkeleyMono NerdFont Mono;
+}
+
+#window, #outer-box, #input, #entry, #scroll {
+  background-color: rgba(0,0,0,0);
+}
+
+// The name of the window itself.
+#window {
+  background-color: rgba(0,0,0,0);
+  color: #00ff00;
+  border-radius: 13px;
+  border: 1px solid red;
+  padding: 10px;
+  display: block;
+}
+
+/* The name of the box that contains everything. */
+#outer-box {
+  padding: 40px;
+  border-radius: 19px;
+  background-color: rgba(30, 30, 46, 0.9);
+  border: 3px solid rgba(137, 180, 250, 1);
+}
+
+
+/* The name of the search bar. */
+#input {
+  color: rgba(205, 214, 244, 1);
+  padding: 13px;
+  margin-bottom: 40px;
+  border: 3px solid rgba(137, 180, 250, 0.4);
+  border-radius: 13px;
+}
+
+/* The name of the scrolled window containing all of the entries. */
+#scroll {
+  outline: none;
+  overflow-x: hidden !important;
+  white-space: no-wrap;
+}
+
+/* The name of the box containing all of the entries. */
+
+#expander-box:focus, #expander-box:focus-within,
+#outer-box:focus, #outer-box:focus-within,
+#input:focus, #input:focus-within,
+#scroll:focus, #scroll:focus-within,
+#entry:focus, #entry:focus-within,
+#selected:focus, #selected:focus-within,
+#unselected:focus, #unselected:focus-within,
+#text:focus, #text:focus-within,
+#inner-box:focus, #inner-box:focus-within {
+  outline: none;
+}
+
+/* The name of all images in entries displayed in image mode. */
+#img {}
+
+
+/* The name of all the text in entries. */
+#text {
+  margin-left: 21px;
+}
+
+#entry label:first-child {
+  font-size: 30px;
+}
+
+/* The name of all entries currently unselected. A better way of doing this is to do #entry and combine that with #en‐ */
+/* try:selected */
+#unselected {
+  color: rgba(88, 91, 112, 1)	;
+}
+
+/* The name of all entries currently selected. A better way of doing this is to do #entry:selected */
+#selected {
+  color: rgba(205, 214, 244, 1);
+}
+
+/*
+The class attached to all entries. This is attached to the inside property box and is old, you probably want #entry instead
+*/
+.entry {
+  margin: 5px 0;
+}
+
+/* The name of all entries. */
+.entry {
+  border-color: blue;
+}
+
+#entry .entry {
+  display: none;
+}
+
+.entry:selected::before {
+  content: "";
+}
+
+.entry:selected::before {
+  content: "→";
+  color: lime !important;
+  padding-right: 0.5em;
+}
+
+/*The name of all boxes shown when expanding entries with multiple actions */
+#expander-box {}

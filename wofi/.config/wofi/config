@@ -1,0 +1,9 @@
+width=35%
+height=25%
+prompt=Search
+term=wezterm
+hide_scroll=true
+allow_markup=true
+allow_images=true
+pre_display_cmd="echo 'YOUR MOM'"
+pre_display_exec=true

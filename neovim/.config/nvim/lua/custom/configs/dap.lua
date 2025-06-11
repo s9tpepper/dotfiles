@@ -9,18 +9,6 @@ dap.adapters['pwa-node'] = {
   },
 }
 
-dap.adapters.lldb = {
-  type = 'executable',
-  command = 'lldb-vscode',
-  name = 'lldb',
-}
-
-dap.adapters.codelldb = {
-  type = 'executable',
-  command = '/Users/omargonzalez/.vscode/extensions/vadimcn.vscode-lldb-1.10.0/adapter/codelldb',
-  name = 'codelldb',
-}
-
 for _, language in ipairs { 'typescript', 'javascript' } do
   dap.configurations[language] = {
     {
@@ -34,27 +22,47 @@ for _, language in ipairs { 'typescript', 'javascript' } do
   }
 end
 
+dap.adapters.codelldb = {
+  type = 'executable',
+  command = '/home/s9tpepper/.local/share/nvim/mason/bin/codelldb',
+  env = {
+    LLDB_LAUNCH_FLAG_LAUNCH_IN_TTY = 'YES',
+  },
+  name = 'godot_rust',
+}
+
 dap.configurations.rust = {
   {
-    name = 'ratatatat-codelldb',
+    name = 'godot_rust',
     type = 'codelldb',
-    request = 'launch',
-    program = function()
-      return vim.fn.getcwd() .. '/target/debug/ratatatat'
+    request = 'attach',
+    pid = function()
+      return require('dap.utils').pick_process { filter = 'godot' }
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
+    sourceLanguages = { 'rust' },
   },
-  {
-    name = 'tui-scrollview',
-    type = 'lldb',
-    request = 'launch',
-    program = function()
-      return vim.fn.getcwd() .. '/target/debug/ratatatat'
-    end,
-    cwd = '${workspaceFolder}',
-    stopOnEntry = false,
-  },
+  -- {
+  --   name = 'ratatatat-codelldb',
+  --   type = 'codelldb',
+  --   request = 'launch',
+  --   program = function()
+  --     return vim.fn.getcwd() .. '/target/debug/ratatatat'
+  --   end,
+  --   cwd = '${workspaceFolder}',
+  --   stopOnEntry = false,
+  -- },
+  -- {
+  --   name = 'tui-scrollview',
+  --   type = 'codelldb',
+  --   request = 'launch',
+  --   program = function()
+  --     return vim.fn.getcwd() .. '/target/debug/ratatatat'
+  --   end,
+  --   cwd = '${workspaceFolder}',
+  --   stopOnEntry = false,
+  -- },
   -- {
   --   -- ... the previous config goes here ...,
   --   initCommands = function()

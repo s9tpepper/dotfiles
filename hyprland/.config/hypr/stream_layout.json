@@ -1,0 +1,138 @@
+[
+    {
+        "address": "0x5e306ce8a3c0",
+        "mapped": true,
+        "hidden": false,
+        "at": [
+            12,
+            39
+        ],
+        "size": [
+            2779,
+            2109
+        ],
+        "workspace": {
+            "id": -1339,
+            "name": "t"
+        },
+        "floating": false,
+        "pseudo": false,
+        "monitor": 1,
+        "class": "org.wezfurlong.wezterm",
+        "title": "tmux",
+        "initialClass": "org.wezfurlong.wezterm",
+        "initialTitle": "zsh",
+        "pid": 1637,
+        "xwayland": true,
+        "pinned": false,
+        "fullscreen": 0,
+        "fullscreenClient": 0,
+        "grouped": [],
+        "tags": [],
+        "swallowing": "0x0",
+        "focusHistoryID": 0,
+        "inhibitingIdle": false
+    },
+    {
+        "address": "0x5e306ce49940",
+        "mapped": true,
+        "hidden": false,
+        "at": [
+            2805,
+            39
+        ],
+        "size": [
+            1023,
+            842
+        ],
+        "workspace": {
+            "id": -1339,
+            "name": "t"
+        },
+        "floating": false,
+        "pseudo": false,
+        "monitor": 1,
+        "class": "org.wezfurlong.wezterm",
+        "title": "sergeant",
+        "initialClass": "org.wezfurlong.wezterm",
+        "initialTitle": "zsh",
+        "pid": 1637,
+        "xwayland": true,
+        "pinned": false,
+        "fullscreen": 0,
+        "fullscreenClient": 0,
+        "grouped": [],
+        "tags": [],
+        "swallowing": "0x0",
+        "focusHistoryID": 3,
+        "inhibitingIdle": false
+    },
+    {
+        "address": "0x5e306ce9cc70",
+        "mapped": true,
+        "hidden": false,
+        "at": [
+            2805,
+            895
+        ],
+        "size": [
+            1023,
+            700
+        ],
+        "workspace": {
+            "id": -1339,
+            "name": "t"
+        },
+        "floating": false,
+        "pseudo": false,
+        "monitor": 1,
+        "class": "org.wezfurlong.wezterm",
+        "title": "zsh",
+        "initialClass": "org.wezfurlong.wezterm",
+        "initialTitle": "zsh",
+        "pid": 1637,
+        "xwayland": true,
+        "pinned": false,
+        "fullscreen": 0,
+        "fullscreenClient": 0,
+        "grouped": [],
+        "tags": [],
+        "swallowing": "0x0",
+        "focusHistoryID": 1,
+        "inhibitingIdle": false
+    },
+    {
+        "address": "0x5e306ce720d0",
+        "mapped": true,
+        "hidden": false,
+        "at": [
+            2805,
+            1609
+        ],
+        "size": [
+            1023,
+            539
+        ],
+        "workspace": {
+            "id": -1339,
+            "name": "t"
+        },
+        "floating": false,
+        "pseudo": false,
+        "monitor": 1,
+        "class": "org.wezfurlong.wezterm",
+        "title": "zsh",
+        "initialClass": "org.wezfurlong.wezterm",
+        "initialTitle": "zsh",
+        "pid": 1637,
+        "xwayland": true,
+        "pinned": false,
+        "fullscreen": 0,
+        "fullscreenClient": 0,
+        "grouped": [],
+        "tags": [],
+        "swallowing": "0x0",
+        "focusHistoryID": 2,
+        "inhibitingIdle": false
+    }
+]
