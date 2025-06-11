@@ -142,6 +142,11 @@ vim.opt.inccommand = 'split'
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+-- Change the color of the cursor line
+vim.api.nvim_set_hl(0, 'CursorLine', { bg = '#151515' })
+vim.api.nvim_create_autocmd('ColorScheme', {
+  command = [[highlight CursorLine guibg=#151515 ctermbg=NONE]],
+})
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -230,6 +235,8 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- TODO: Figure out why this doesn't work here, but works in catppuccin config
+--
+-- Change the color of the visual selection
 local hl_group = 'Visual'
 vim.api.nvim_set_hl(0, hl_group, {
   -- bg = '#9900FF',
@@ -245,10 +252,6 @@ vim.api.nvim_set_hl(0, hl_group, {
   ctermbg = 'yellow',
   standout = false,
   italic = false,
-})
-
-vim.api.nvim_create_autocmd('ColorScheme', {
-  command = [[highlight CursorLine guibg=#222222 ctermbg=NONE]],
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
