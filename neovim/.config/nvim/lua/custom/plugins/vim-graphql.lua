@@ -1,1 +1,4 @@
-return { 'jparise/vim-graphql' }
+return {
+  'jparise/vim-graphql',
+  lazy = true,
+}
