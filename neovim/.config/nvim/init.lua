@@ -359,9 +359,30 @@ local function setup_rustaceanvim(capabilities)
       server = {
         default_settings = {
           ['rust-analyzer'] = {
+            cargo = {
+              allFeatures = true,
+            },
+
             check = {
               command = 'clippy',
+              enable = false,
             },
+
+            -- checkOnSave = {
+            --   command = 'clippy',
+            --   enable = false,
+            -- },
+            checkOnSave = false,
+
+            files = {
+              excludeDirs = {
+                'target',
+                'node_modules',
+                '.git',
+              },
+            },
+
+            procMacro = { enable = true },
           },
         },
         capabilities = capabilities,
@@ -898,20 +919,23 @@ require('lazy').setup({
         --   -- },
         -- },
 
-        rust_analyzer = {
-          handlers = handlers,
-          on_attach = function(client, bufnr)
-            if client.server_capabilities.documentHighlightProvider then
-              add_doc_highlighting(bufnr)
-            end
-          end,
-
-          settings = {
-            check = {
-              command = 'clippy',
-            },
-          },
-        },
+        -- NOTE: This enabled Mason managed rust-analyzer
+        -- rust_analyzer = {
+        --   handlers = handlers,
+        --   on_attach = function(client, bufnr)
+        --     if client.server_capabilities.documentHighlightProvider then
+        --       add_doc_highlighting(bufnr)
+        --     end
+        --   end,
+        --
+        --   settings = {
+        --     check = {
+        --       command = 'clippy',
+        --     },
+        --
+        --     checkOnSave = false,
+        --   },
+        -- },
 
         lua_ls = {
           handlers = handlers,
