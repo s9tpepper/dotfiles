@@ -1080,6 +1080,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format lua code
+        'lua_ls',
         'js-debug-adapter',
         -- 'eslint-lsp',
         'eslint_d',
@@ -1114,28 +1115,14 @@ require('lazy').setup({
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
       require('mason-lspconfig').setup {
         ensure_installed = {},
-        automatic_installation = true,
-        handlers = {
-          function(server_name)
-            -- Skip rust_analyzer to rustaceanvim can do its thing
-            if server_name ~= 'rust_analyzer' then
-              local server = servers[server_name] or {}
-
-              require('lspconfig')[server_name].setup {
-                cmd = server.cmd,
-                handlers = handlers,
-                settings = server.settings,
-                filetypes = server.filetypes,
-                -- This handles overriding only values explicitly passed
-                -- by the server configuration above. Useful when disabling
-                -- certain features of an LSP (for example, turning off formatting for tsserver)
-                capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {}),
-                on_attach = server.on_attach,
-              }
-            end
-          end,
-        },
       }
+
+      -- Set up server configs with vim.lsp.config, mason-lspconfig has removed
+      -- handlers and setup_handlers()
+      for server_name, config in pairs(servers) do
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities or {}, config.capabilities or {})
+        vim.lsp.config(server_name, config)
+      end
 
       -- Add file types to languages
       vim.filetype.add {
