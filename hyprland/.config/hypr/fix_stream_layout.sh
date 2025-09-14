@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-source ./layout_functions.sh
+source /home/s9tpepper/.config/hypr/layout_functions.sh
 
 enable_floating "wezterm_tmux"
 resize "wezterm_tmux" 2779 2109
