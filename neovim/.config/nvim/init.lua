@@ -849,6 +849,7 @@ require('lazy').setup({
         --
         -- If you only have simple needs for typescript, then you can probably just use tsserver
         ts_ls = {
+          filetypes = { 'javascript', 'javascriptreact', 'typescript', 'tsx' },
           handlers = handlers,
           on_attach = function(client, bufnr)
             if client.server_capabilities.documentHighlightProvider then
@@ -858,6 +859,8 @@ require('lazy').setup({
           init_options = {
             preferences = {
               disableSuggestions = true,
+              importModuleSpecifierPreference = 'non-relative',
+              importModuleSpecifierEnding = 'js',
             },
           },
           commands = {
@@ -1085,6 +1088,7 @@ require('lazy').setup({
         -- 'eslint-lsp',
         'eslint_d',
         'prettier',
+        'ts_ls',
         -- 'typescript-language-server',
         -- 'gopls',
         'js-debug-adapter',
