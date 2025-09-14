@@ -8,7 +8,7 @@ vim.env.NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 --   scope = 'global',
 -- })
 
-vim.api.nvim_set_option_value('guicursor', 'n-v-c-i-sm:block-blinkon1,r-cr-o:hor20', {
+vim.api.nvim_set_option_value('guicursor', 'n-v-c-i-sm:block-blinkwait700-blinkon300-blinkoff250,r-cr-o:hor20-blinkwait700-blinkon400-blinkoff250', {
   scope = 'global',
 })
 
