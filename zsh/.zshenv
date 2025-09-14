@@ -1,6 +1,6 @@
 [[ -f ~/.cargo/env ]] && . "$HOME/.cargo/env"
 
-export KUBE_EDITOR="/opt/homebrew/bin/nvim"
+export KUBE_EDITOR=$(which nvim)
 export EDITOR=$(which nvim)
 export GROOVY_HOME="/usr/local/opt/groovy/libexec/"
 export HELM_EXPERIMENTAL_OCI=1

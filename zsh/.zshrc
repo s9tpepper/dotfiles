@@ -1,6 +1,8 @@
 # Starship
 eval "$(starship init zsh)"
 
+PATH=$HOME/.local/bin:$PATH
+
 # Functions
 
 function laws() {
