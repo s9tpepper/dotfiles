@@ -38,9 +38,9 @@
 @define-color inactive	@purple;
 @define-color sound	@brpurple;
 @define-color network	@purple;
-@define-color memory	@braqua;
 @define-color cpu	@green;
 @define-color temp	@brgreen;
+@define-color memory	@white;
 /* @define-color layout	@bryellow; */
 @define-color layout	@brgreen;
 @define-color battery	@aqua;
@@ -56,7 +56,8 @@
 	padding: 0;
 	box-shadow: none;
 	text-shadow: none;
-	icon-shadow: none;
+	-gtk-icon-shadow: none;
+	font-size: 16pt;
 }
 
 /* The whole bar */
@@ -64,7 +65,7 @@
 	background: rgba(40, 40, 40, 0.8784313725); /* #282828e0 */
 	color: @white;
 	font-family: BerkeleyMono Nerd Font Mono, Siji;
-	font-size: 13pt;
+	/* font-size: 26pt; */
 	/*font-weight: bold;*/
 }
 
@@ -206,61 +207,61 @@
 }
 
 #custom-arrow1 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @time;
 	background: @date;
 }
 
 #custom-arrow2 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @date;
 	background: @layout;
 }
 
 #custom-arrow3 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @layout;
 	background: @battery;
 }
 
 #custom-arrow4 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @battery;
 	background: @temp;
 }
 
 #custom-arrow5 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @temp;
 	background: @cpu;
 }
 
 #custom-arrow6 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @cpu;
 	background: @memory;
 }
 
 #custom-arrow7 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @memory;
 	background: @network;
 }
 
 #custom-arrow8 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @network;
 	background: @sound;
 }
 
 #custom-arrow9 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @sound;
 	background: transparent;
 }
 
 #custom-arrow10 {
-	font-size: 13pt;
+	font-size: 21pt;
 	color: @unfocused;
 	background: transparent;
 }
