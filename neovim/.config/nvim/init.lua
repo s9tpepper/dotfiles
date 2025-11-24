@@ -448,14 +448,15 @@ require('lazy').setup({
         timeout_ms = 500,
         lsp_fallback = true,
       },
+
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
+        javascript = { 'prettierd', 'prettier', 'eslint' },
+        javascriptreact = { 'prettierd', 'prettier', 'eslint' },
+        typescript = { 'prettierd', 'prettier', 'eslint' },
+        typescriptreact = { 'prettierd', 'prettier', 'eslint' },
+        css = { 'prettierd', 'prettier' },
+        html = { 'prettierd', 'prettier' },
       },
     },
   },
@@ -560,6 +561,15 @@ require('lazy').setup({
         --  All the info you're looking for is in `:help telescope.setup()`
         --
         defaults = {
+          vimgrep_arguments = {
+            'rg',
+            '--color=never',
+            '--no-heading',
+            '--with-filename',
+            '--line-number',
+            '--column',
+            '--smart-case',
+          },
           initial_mode = 'normal',
           layout_config = {
             bottom_pane = {
@@ -595,7 +605,14 @@ require('lazy').setup({
           --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           -- },
         },
-        -- pickers = {}
+        pickers = {
+          live_grep = {
+            debounce = 100,
+          },
+          find_files = {
+            find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix' },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
