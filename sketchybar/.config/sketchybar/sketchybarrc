@@ -65,7 +65,7 @@ sketchybar --default "${default[@]}"
 # done
 
 #Define icons for workspaces
-SPACE_ICONS=("1 " "2 󰙯" "3 " "T " "B 󰖟")
+SPACE_ICONS=("1 " "2 󰙯" "3 " "T " "B 󰖟" "D" "E" "S")
 for sid in $(aerospace list-workspaces --all); do
   # Get the icon for the current workspace
   ICON="${SPACE_ICONS[$((sid - 1))]}"
