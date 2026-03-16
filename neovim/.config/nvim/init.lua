@@ -601,9 +601,12 @@ require('lazy').setup({
               width = 0.8,
             },
           },
-          -- mappings = {
-          --   i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-          -- },
+          mappings = {
+            -- i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+            n = {
+              ['<c-D>'] = 'delete_buffer',
+            },
+          },
         },
         pickers = {
           live_grep = {
