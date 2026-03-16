@@ -226,6 +226,10 @@ run = "move-node-to-workspace B"
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = "move-node-to-workspace S"
 
+[[on-window-detected]]
+if.app-id = 'org.mozilla.nightly'
+run = "move-node-to-workspace B"
+
 [workspace-to-monitor-force-assignment]
 1 = [ '^built-in retina display', 'Built-in Display', 'V3L6W', 'ASUS PB287Q' ]
 2 = [ '^built-in retina display', 'Built-in Display', 'V3L6W', 'ASUS PB287Q' ]
