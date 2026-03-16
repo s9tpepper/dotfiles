@@ -106,10 +106,17 @@ local mode_map = {
   ['t'] = ' TERMINAL',
 }
 
+local catppuccin_theme = require 'catppuccin.utils.lualine'()
+
 return {
+  -- Issue with catppuccin theme has a problem with named theme
+  -- modules as of 2025/03/16
+  --
   -- theme = 'catppuccin',
+
+  theme = catppuccin_theme,
   options = {
-    theme = 'catppuccin',
+    -- theme = 'catppuccin',
     component_separators = '',
     disabled_filetypes = { 'NvimTree' },
     section_separators = { left = '', right = '' },
@@ -136,7 +143,8 @@ return {
         sections = { 'warn' },
         diagnostics_color = { warn = { bg = colors.orange, fg = colors.white } },
       },
-      { 'filename', file_status = false, path = 1 },
+      -- Moved the file name out of the section showing the diagnostics/git info
+      --{ 'filename', file_status = false, path = 1 },
       { modified, color = { bg = colors.red } },
       {
         '%w',
@@ -157,7 +165,12 @@ return {
         end,
       },
     },
-    lualine_c = {},
+    lualine_c = {
+      {
+        'filename',
+        path = 1,
+      },
+    },
     lualine_x = {
       {
         require('noice').api.status.mode.get,
