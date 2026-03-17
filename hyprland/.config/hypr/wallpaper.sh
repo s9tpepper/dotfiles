@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-WALLPAPER_DIR="/mnt/nas/documents/desktop wallpapers/zelda/"
+WALLPAPER_DIR="/mnt/documents/desktop wallpapers/zelda/"
 CURRENT_WALL=$(hyprctl hyprpaper listloaded)
 
 # Get a random wallpaper that is not the current one

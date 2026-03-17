@@ -3,12 +3,12 @@
 source /home/s9tpepper/.config/hypr/layout_functions.sh
 
 enable_floating "wezterm_tmux"
-resize "wezterm_tmux" 2779 2109
-move_to "wezterm_tmux" 12 39
+resize "wezterm_tmux" 2779 2099
+move_to "wezterm_tmux" 12 49
 
 enable_floating "wezterm_sergeant"
-resize "wezterm_sergeant" 1023 842
-move_to "wezterm_sergeant" 2805 39
+resize "wezterm_sergeant" 1023 832
+move_to "wezterm_sergeant" 2805 49
 
 enable_floating "wezterm_cam"
 resize "wezterm_cam" 1023 700
