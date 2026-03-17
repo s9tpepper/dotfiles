@@ -1,9 +1,21 @@
+plugins=(
+    zsh-autosuggestions
+)
+
 # Starship
 eval "$(starship init zsh)"
 
 PATH=$HOME/.local/bin:$PATH
 
 # Functions
+function snapshotRoot () {
+  path_snap_root=/.snapshots
+  distro=$(grep -ioP '^ID=\K.+' /etc/os-release)
+  now=$(date +"%Y%m%d_%H%M%S")
+  path_snap_new="${path_snap_root}/${distro}/${now}"
+  echo "Creating Snapshot: ${path_snap_new}"
+  sudo btrfs subvol snapshot -r / $path_snap_new
+}
 
 function laws() {
   echo -e "$BLUE==> Running: aws sso login --profile $1 $NC"
@@ -55,10 +67,10 @@ function neat() {
 # THIS FIXES ERROR SWITCHING INTO NORMAL MODE IN ZSH
 # Check that the function `starship_zle-keymap-select()` is defined.
 # xref: https://github.com/starship/starship/issues/3418
-# type starship_zle-keymap-select >/dev/null || \
-#   {
-#     eval "$(starship init zsh)"
-#   }
+type starship_zle-keymap-select >/dev/null || \
+  {
+    eval "$(starship init zsh)"
+  }
 
 # Tools Init
 eval "$(zoxide init zsh)"
@@ -107,10 +119,6 @@ alias cd="z"
 alias ls="eza"
 alias k='kubectl'
 alias k8ns='kubens'
-alias kprod='kubectl config use-context worldofgoodbrands-prod-eks'
-alias kdev='kubectl config use-context worldofgoodbrands-dev-eks'
-alias token='echo "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU4MmI3YzI5MWU0NTQ3MDAxMTcyMDg5ZiIsImVtYWlsIjoiZGV2c0BsZWFmZ3JvdXAuY29tIiwicm9sZXMiOlsidXNlciIsImFkbWluIl0sImxvZ2luVG9rZW4iOiI1MzA2NTgxYy0yMjAyLTQ2YWYtYTM1NC05NzIxNzM4ODE0OTciLCJpYXQiOjE0NzkyNDU2MjUsImV4cCI6NDYzMjg0NTYyNX0.etR44SEv2A3vI3vO6HnSBXruwPMWMTIE8-ZR8vom6e4" | pbcopy; echo "token copied."'
-
 
 greetings
 
@@ -129,5 +137,6 @@ LINUX_ZSH_AUTOSUGG_PATH="/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosugg
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 
 source ~/.zprofile

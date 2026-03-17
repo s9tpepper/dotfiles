@@ -16,11 +16,15 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export DATABASE_URL=sqlite:///mnt/nas/documents/stream/database/intros.db
 
 # Arch Dark Mode
-export GTK_THEME=Catppuccin-Mocha
+export GTK_THEME=Catppuccin-Dark
+export GTK4_THEME=Catppuccin-Dark
 export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+export ICON_THEME=Catppuccin
 
 # export QT_STYLE_OVERRIDE=kvantum
 export QT_QPA_PLATFORMTHEME=qt5ct
 export QT6CT_PLATFORMTHEME=qt6ct
 
 export GODOT4_BIN=$(which godot)
+
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom/plugins"
