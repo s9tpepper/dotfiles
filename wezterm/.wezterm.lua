@@ -9,11 +9,12 @@ config.colors = {
 
 config.font = wezterm.font_with_fallback({
 	{ family = "BerkeleyMono Nerd Font Mono" },
+	{ family = "Symbols Nerd Font Mono" },
 	{ family = "JetBrains Mono" },
 	{ family = "Roboto" },
 	{ family = "Berkeley Mono" },
 })
-config.font_size = 14.0
+config.font_size = 26.0
 config.line_height = 1
 
 config.freetype_load_target = "Normal"
