@@ -455,8 +455,16 @@ require('lazy').setup({
         javascriptreact = { 'prettierd', 'prettier', 'eslint' },
         typescript = { 'prettierd', 'prettier', 'eslint' },
         typescriptreact = { 'prettierd', 'prettier', 'eslint' },
-        css = { 'prettierd', 'prettier' },
-        html = { 'prettierd', 'prettier' },
+        css = { 'prettierd', 'prettier', 'eslint' },
+        html = { 'prettierd', 'prettier', 'eslint' },
+        json = { 'prettierd', 'prettier', 'eslint' },
+
+        -- Conform can also run multiple formatters sequentially
+        -- python = { "isort", "black" },
+        --
+        -- You can use a sub-list to tell conform to run *until* a formatter
+        -- is found.
+        -- javascript = { { "prettierd", "prettier" } },
       },
     },
   },
@@ -664,6 +672,14 @@ require('lazy').setup({
           cwd = vim.fn.stdpath 'config',
         }
       end, { desc = '[S]earch [N]eovim files' })
+
+      require('telescope').setup {
+        pickers = {
+          lsp_references = {
+            show_line = false,
+          },
+        },
+      }
     end,
   },
 
@@ -858,7 +874,24 @@ require('lazy').setup({
       local handlers = {}
 
       local servers = {
-        -- clangd = {},
+        clangd = {
+          cmd = {
+            'clangd',
+            '--background-index',
+            '--clang-tidy',
+            '--clang-tidy-checks=*',
+            '--header-insertion=iwyu',
+            '--suggest-missing-includes',
+            '-j=12',
+            '--query-driver=/usr/bin/**/clang-*,/bin/clang,/bin/clang++,/usr/bin/gcc,/usr/bin/g++',
+            '--all-scopes-completion',
+            '--cross-file-rename',
+            '--completion-style=detailed',
+            '--header-insertion-decorators',
+            '--pch-storage=memory',
+            -- '-Werror-no-cppcoreguidelines-avoid-magic-numbers',
+          },
+        },
         -- gopls = {},
         -- pyright = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -1102,6 +1135,8 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'clangd',
+        'clang-format',
         'stylua', -- Used to format lua code
         'lua_ls',
         'js-debug-adapter',
