@@ -1,0 +1,78 @@
+-- vim.pack.add {
+--   'https://github.com/nvim-lua/plenary.nvim',
+--   { src = 'https://github.com/ThePrimeagen/harpoon', version = 'harpoon2' },
+-- }
+--
+-- local harpoon = require 'harpoon'
+--
+-- print(vim.inspect(harpoon))
+--
+-- harpoon:setup()
+-- --   settings = {
+-- --     save_on_toggle = true,
+-- --     save_on_ui_close = true,
+-- --   },
+-- -- }
+-- vim.keymap.set('n', '<leader>a', function()
+--   harpoon:list():append()
+-- end, { desc = 'Add file to Harpoon' })
+-- vim.keymap.set('n', '<leader>H', function()
+--   harpoon.ui:toggle_quick_menu(harpoon:list())
+-- end, { desc = 'Open Harpoon Window' })
+-- vim.keymap.set('n', '<leader>1', function()
+--   harpoon:list():select(1)
+-- end, { desc = 'Open Harpoon File 1' })
+-- vim.keymap.set('n', '<leader>2', function()
+--   harpoon:list():select(2)
+-- end, { desc = 'Open Harpoon File 2' })
+-- vim.keymap.set('n', '<leader>3', function()
+--   harpoon:list():select(3)
+-- end, { desc = 'Open Harpoon File 3' })
+-- vim.keymap.set('n', '<leader>4', function()
+--   harpoon:list():select(4)
+-- end, { desc = 'Open Harpoon File 4' })
+-- vim.keymap.set('n', '<leader>5', function()
+--   harpoon:list():select(5)
+-- end, { desc = 'Open Harpoon File 5' })
+--
+-- -- Telescope Setup
+-- local function toggle_telescope(harpoon_files)
+--   local file_paths = {}
+--   for _, item in ipairs(harpoon_files.items) do
+--     table.insert(file_paths, item.value)
+--   end
+--
+--   local telescope_conf = require('telescope.config').values -- moved inside
+--   local pickers = require 'telescope.pickers' -- moved inside
+--   local finders = require 'telescope.finders' -- moved inside
+--   local actions = require 'telescope.actions'
+--   local action_state = require 'telescope.actions.state'
+--
+--   pickers
+--     .new({}, {
+--       prompt_title = 'Harpoon',
+--       finder = finders.new_table { results = file_paths },
+--       previewer = telescope_conf.file_previewer {},
+--       sorter = telescope_conf.generic_sorter {},
+--       attach_mappings = function(prompt_bufnr)
+--         actions.select_default:replace(function()
+--           actions.close(prompt_bufnr)
+--           local selection = action_state.get_selected_entry()
+--           if selection then
+--             for i, item in ipairs(harpoon_files.items) do
+--               if item.value == selection[1] then
+--                 harpoon:list():select(i)
+--                 break
+--               end
+--             end
+--           end
+--         end)
+--         return true
+--       end,
+--     })
+--     :find()
+-- end
+--
+-- vim.keymap.set('n', '<C-e>', function()
+--   toggle_telescope(harpoon:list())
+-- end, { desc = 'Open Telescope Harpoon Window' })
