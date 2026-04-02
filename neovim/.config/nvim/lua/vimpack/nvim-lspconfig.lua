@@ -14,18 +14,18 @@ vim.pack.add {
 }
 
 vim.pack.add { 'https://github.com/neovim/nvim-lspconfig' }
-require('lspconfig').setup { -- LSP Configuration & Plugins
-  -- NOTE: this inlay_hint setting is not working either nvim 0.9
-  servers = {
-    lua_ls = {
-      settings = {
-        Lua = {
-          hint = { enable = true },
-        },
-      },
-    },
-  },
-}
+-- require('lspconfig').setup { -- LSP Configuration & Plugins
+--   -- NOTE: this inlay_hint setting is not working either nvim 0.9
+--   servers = {
+--     lua_ls = {
+--       settings = {
+--         Lua = {
+--           hint = { enable = true },
+--         },
+--       },
+--     },
+--   },
+-- }
 
 local function add_doc_highlighting(buf)
   vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
