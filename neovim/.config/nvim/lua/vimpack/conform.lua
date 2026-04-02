@@ -1,4 +1,6 @@
-vim.pack.add({ 'https://github.com/stevearc/conform.nvim' }, {
+vim.pack.add { 'https://github.com/stevearc/conform.nvim' }
+
+require('conform').setup {
   notify_on_error = false,
   format_on_save = {
     timeout_ms = 500,
@@ -22,4 +24,4 @@ vim.pack.add({ 'https://github.com/stevearc/conform.nvim' }, {
     -- is found.
     -- javascript = { { "prettierd", "prettier" } },
   },
-})
+}
