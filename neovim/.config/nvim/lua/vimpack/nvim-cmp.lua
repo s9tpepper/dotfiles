@@ -35,14 +35,14 @@ vim.pack.add({ 'https://github.com/hrsh7th/nvim-cmp' }, {
 
 -- See `:help cmp`
 
-local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 luasnip.config.setup {}
 
 local lspkind = require 'lspkind'
 lspkind.init {}
 
-cmp.setup {
+local cmp = require 'cmp'
+cmp.setup({
   formatting = {
     fields = { 'abbr', 'menu', 'kind' },
     expandable_indicator = true,
@@ -65,8 +65,15 @@ cmp.setup {
   completion = { completeopt = 'menu,menuone,noinsert' },
 
   window = {
-    completion = cmp.config.window.bordered(),
-    documentation = cmp.config.window.bordered(),
+    -- completion = cmp.config.window.bordered(),
+    -- documentation = cmp.config.window.bordered(),
+    completion = {
+      border = 'rounded',
+    },
+
+    documentation = {
+      border = 'rounded',
+    }
   },
 
   -- For an understanding of why these mappings were
@@ -113,4 +120,4 @@ cmp.setup {
     { name = 'luasnip' },
     { name = 'path' },
   },
-}
+})

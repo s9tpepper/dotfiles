@@ -4,6 +4,7 @@ vim.pack.add({
   'https://github.com/folke/noice.nvim',
 }, {
   notify = {
+    enabled = false,
     merge = true,
   },
 })

@@ -12,6 +12,30 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+-- Native diagnostics since nvim 0.12
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN]  = '󱨊',
+      [vim.diagnostic.severity.HINT]  = '',
+      [vim.diagnostic.severity.INFO]  = '󰙎',
+    },
+    numhl = {
+      [vim.diagnostic.severity.ERROR] = 'DiagnosticSignError',
+      [vim.diagnostic.severity.WARN]  = 'DiagnosticSignWarn',
+      [vim.diagnostic.severity.HINT]  = 'DiagnosticSignHint',
+      [vim.diagnostic.severity.INFO]  = 'DiagnosticSignInfo',
+    },
+    linehl = {
+      [vim.diagnostic.severity.ERROR] = '',
+      [vim.diagnostic.severity.WARN]  = '',
+      [vim.diagnostic.severity.HINT]  = '',
+      [vim.diagnostic.severity.INFO]  = '',
+    },
+  },
+})
+
 -- Dynamic diagnostic border colors
 
 local function get_diagnostic_border_color(bufnr)

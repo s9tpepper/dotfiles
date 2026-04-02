@@ -282,12 +282,13 @@ local function require_directory_files(directory_path, module_prefix)
   end
 end
 
--- local base_config_dir = vim.fn.stdpath 'config'
+local base_config_dir = vim.fn.stdpath 'config'
+-- Used for local dev
+--local base_config_dir = vim.fn.expand '/home/s9tpepper/documents/github/s9tpepper/dotfiles/neovim/.config/nvim'
+
 -- local base_config_dir = vim.fn.expand '/home/s9tpepper/documents/github/s9tpepper/dotfiles/neovim/.config/nvim'
 -- local vimpack_config_dir = base_config_dir .. '/lua/vimpack'
 -- print('vimpack_config_dir:' .. vimpack_config_dir)
-
-local base_config_dir = vim.fn.expand '/home/s9tpepper/documents/github/s9tpepper/dotfiles/neovim/.config/nvim'
 
 -- Add to runtimepath AND package.path
 vim.opt.rtp:prepend(base_config_dir)
@@ -337,5 +338,6 @@ vim.diagnostic.config {
 }
 
 vim.o.winborder = 'rounded'
+vim.o.pumborder = 'rounded'
 
 return {}

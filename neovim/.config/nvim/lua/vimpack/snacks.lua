@@ -1,7 +1,9 @@
 vim.pack.add(
-  { 'https://github.com/folke/snacks.nvim' },
+  { 'https://github.com/folke/snacks.nvim' }
+)
+
   ---@type snacks.Config
-  {
+local snacks_config = {
     -- your configuration comes here
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
@@ -83,4 +85,95 @@ vim.pack.add(
       enabled = true,
     },
   }
-)
+
+local Snacks = require("snacks")
+Snacks.setup(snacks_config)
+
+
+local keys = {
+    {
+      '<leader>n',
+      function()
+        Snacks.notifier.hide()
+      end,
+      desc = 'Dismiss all notifications',
+    },
+    {
+      '<leader>nh',
+      function()
+        Snacks.notifier.show_history()
+      end,
+      desc = 'Show notification history',
+    },
+    {
+      '<leader>cR',
+      function()
+        Snacks.rename.rename_file()
+      end,
+      desc = 'Rename File',
+    },
+    {
+      '<leader>gb',
+      function()
+        Snacks.git.blame_line()
+      end,
+      desc = 'Git Blame Line',
+    },
+    {
+      '<leader>gB',
+      function()
+        Snacks.gitbrowse()
+      end,
+      desc = 'Git Browse',
+      mode = { 'n', 'v' },
+    },
+    {
+      '<leader>lg',
+      function()
+        Snacks.lazygit.open()
+      end,
+      desc = 'Open LazyGit',
+    },
+    {
+      '<leader>z',
+      function()
+        Snacks.zen()
+      end,
+      desc = 'Toggle Zen mode',
+    },
+    {
+      '<leader>wj',
+      function()
+        Snacks.words.jump(1, true)
+      end,
+      desc = 'Jump to next LSP reference',
+    },
+    {
+      '<leader>wc',
+      function()
+        Snacks.words.clear()
+      end,
+      desc = 'Clear word reference',
+    },
+    {
+      '<leader>js',
+      function()
+        Snacks.scope.jump()
+      end,
+      desc = 'Jump around based on scope',
+    },
+  }
+
+for _, key in ipairs(keys) do
+  local lhs = key[1]
+  local rhs = key[2]
+  local opts = {
+    desc = key.desc,
+    silent = key.silent ~= false,
+    noremap = true,
+  }
+
+  local mode = key.mode or "n"
+
+  vim.keymap.set(mode, lhs, rhs, opts)
+end
