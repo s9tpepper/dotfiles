@@ -340,13 +340,13 @@ vim.diagnostic.config {
 vim.o.winborder = 'rounded'
 vim.o.pumborder = 'rounded'
 
+-- Disabled UI2 for now, too buggy with floating config from noice
 -- Set cmdheight to 0 for a truly floating command line
-vim.o.cmdheight = 0
-
+-- vim.o.cmdheight = 0
 -- Enable experimental UI2
-require('vim._core.ui2').enable {
-  -- Optional configuration options
-  enable = true,
-  cmd = { height = 0.5 },
-  msg = { height = 0.3, timeout = 5000 },
-}
+-- require('vim._core.ui2').enable {
+--   -- Optional configuration options
+--   enable = true,
+--   cmd = { height = 0.5 },
+--   msg = { height = 0.3, timeout = 5000 },
+-- }
