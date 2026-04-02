@@ -1,6 +1,7 @@
-vim.pack.add({
+vim.pack.add {
   'https://github.com/L3MON4D3/LuaSnip',
-}, {
+}
+require('luasnip').setup {
   build = (function()
     -- Build Step is needed for regex support in snippets
     -- This step is not supported in many windows environments
@@ -10,7 +11,7 @@ vim.pack.add({
     end
     return 'make install_jsregexp'
   end)(),
-})
+}
 
 vim.pack.add {
   'https://github.com/onsails/lspkind.nvim',
@@ -29,10 +30,6 @@ vim.pack.add {
   -- 'rafamadriz/friendly-snippets',
 }
 
-vim.pack.add({ 'https://github.com/hrsh7th/nvim-cmp' }, {
-  event = 'InsertEnter',
-})
-
 -- See `:help cmp`
 
 local luasnip = require 'luasnip'
@@ -41,8 +38,9 @@ luasnip.config.setup {}
 local lspkind = require 'lspkind'
 lspkind.init {}
 
+vim.pack.add { 'https://github.com/hrsh7th/nvim-cmp' }
 local cmp = require 'cmp'
-cmp.setup({
+cmp.setup {
   formatting = {
     fields = { 'abbr', 'menu', 'kind' },
     expandable_indicator = true,
@@ -73,7 +71,7 @@ cmp.setup({
 
     documentation = {
       border = 'rounded',
-    }
+    },
   },
 
   -- For an understanding of why these mappings were
@@ -120,4 +118,4 @@ cmp.setup({
     { name = 'luasnip' },
     { name = 'path' },
   },
-})
+}

@@ -1,15 +1,11 @@
-vim.pack.add(
-  {
-    'https://github.com/nvim-tree/nvim-web-devicons',
-    'https://github.com/folke/trouble.nvim',
-  },
-  -- dependencies = { 'nvim-tree/nvim-web-devicons' },
-  {
-    cmd = 'Trouble',
-  }
-)
+vim.pack.add {
+  'https://github.com/nvim-tree/nvim-web-devicons',
+  'https://github.com/folke/trouble.nvim',
+}
 
-require('trouble').setup()
+require('trouble').setup {
+  cmd = 'Trouble',
+}
 
 vim.keymap.set('n', '<leader>xx', '<cmd>Trouble diagnostics toggle<cr>', { desc = 'Diagnostics' })
 vim.keymap.set('n', '<leader>xX', '<cmd>Trouble diagnostics toggle filter.buf=0<cr>', { desc = 'Buffer Diagnostics' })

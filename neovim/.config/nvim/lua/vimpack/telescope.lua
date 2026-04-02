@@ -1,15 +1,5 @@
 vim.pack.add { 'https://github.com/nvim-lua/plenary.nvim' }
-vim.pack.add({ 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' }, {
-  -- `build` is used to run some command when the plugin is installed/updated.
-  -- This is only run then, not every time Neovim starts up.
-  build = 'make',
-
-  -- `cond` is a condition used to determine whether this plugin should be
-  -- installed and loaded.
-  cond = function()
-    return vim.fn.executable 'make' == 1
-  end,
-})
+vim.pack.add { 'https://github.com/nvim-telescope/telescope-fzf-native.nvim' }
 vim.pack.add { 'https://github.com/nvim-telescope/telescope-ui-select.nvim' }
 
 -- Useful for getting pretty icons, but requires special font.
@@ -17,10 +7,7 @@ vim.pack.add { 'https://github.com/nvim-telescope/telescope-ui-select.nvim' }
 --  you can enable this
 -- { 'nvim-tree/nvim-web-devicons' }
 
-vim.pack.add({ 'https://github.com/nvim-telescope/telescope.nvim' }, {
-  event = 'VeryLazy',
-  branch = '0.1.x',
-})
+vim.pack.add { 'https://github.com/nvim-telescope/telescope.nvim' }
 
 -- Telescope is a fuzzy finder that comes with a lot of different things that
 -- it can fuzzy find! It's more than just a "file finder", it can search

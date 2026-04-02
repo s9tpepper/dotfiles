@@ -1,10 +1,6 @@
-vim.pack.add({
+vim.pack.add {
   'https://github.com/catppuccin/nvim',
-}, {
-  name = 'catppuccin',
-  priority = 1000,
-  transparent_background = true,
-})
+}
 
 vim.opt.termguicolors = true
 

@@ -1,21 +1,15 @@
-vim.pack.add({
+vim.pack.add {
   'https://github.com/MunifTanjim/nui.nvim',
   'https://github.com/rcarriga/nvim-notify',
   'https://github.com/folke/noice.nvim',
-}, {
+}
+
+require('noice').setup {
   notify = {
     enabled = false,
     merge = true,
   },
-})
 
--- NOTE: Disabled, replaced by snacks.nvim
--- require('notify').setup {
---   background_colour = '#000000',
---   max_width = 60,
--- }
-
-require('noice').setup {
   lsp = {
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
