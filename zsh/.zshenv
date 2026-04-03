@@ -28,3 +28,4 @@ export QT6CT_PLATFORMTHEME=qt6ct
 export GODOT4_BIN=$(which godot)
 
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom/plugins"
+. "/home/s9tpepper/.local/share/bob/env/env.sh"
