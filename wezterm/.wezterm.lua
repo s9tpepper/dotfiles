@@ -9,7 +9,7 @@ config.colors = {
 
 config.font = wezterm.font_with_fallback({
 	{ family = "BerkeleyMono Nerd Font Mono" },
-	{ family = "Symbols Nerd Font Mono" },
+	{ family = "Noto Color Emoji" },
 	{ family = "JetBrains Mono" },
 	{ family = "Roboto" },
 	{ family = "Berkeley Mono" },
