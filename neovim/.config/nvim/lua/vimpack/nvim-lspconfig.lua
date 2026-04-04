@@ -7,9 +7,6 @@ vim.pack.add {
   -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
   'https://github.com/j-hui/fidget.nvim',
 
-  -- Lua LSP configs for the Neovim config, runtime, and plugins for completion,
-  -- annotations, and signatures of Neovim apis
-  'https://github.com/folke/neodev.nvim',
   'https://github.com/hrsh7th/cmp-nvim-lsp',
 }
 
@@ -151,6 +148,9 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+-- NOTE: Rustaceanvim must be configured before any LspAttach fires, so call at module level
+setup_rustaceanvim(capabilities)
+
 -- Brief Aside: **What is LSP?**
 --
 -- LSP is an acronym you've probably heard, but might not understand what it is.
@@ -240,10 +240,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
     --  For example, in C this would take you to the header
     map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
-    -- NOTE: Have to start Rustaceanvim here, doing so any later makes the LSP not start
-    -- Moved capabilities creation to top of this callback so it is available to all LSPs
-    setup_rustaceanvim(capabilities)
-
     local client = vim.lsp.get_client_by_id(event.data.client_id)
     -- Inlay Hints
     if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
@@ -252,40 +248,25 @@ vim.api.nvim_create_autocmd('LspAttach', {
       end, 'Toggle [I]nlay [H]ints')
     end
 
-    -- NOTE: move this on a per LSP basis
-    -- The following two autocommands are used to highlight references of the
-    -- word under your cursor when your cursor rests there for a little while.
-    --    See `:help CursorHold` for information about when this is executed
-    -- This was in the Kickstart.nvim init.lua and I had to move it to be
-    -- applied on a per LSP basis
-    --
-    -- When you move your cursor, the highlights will be cleared (the second autocommand).
-    -- vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-    --   buffer = event.buf,
-    --   callback = vim.lsp.buf.document_highlight,
-    --   -- NOTE: trying to get the callback to work with groovylsp
-    --   -- callback = function()
-    --   --   local client = vim.lsp.client()
-    --   --   if client.name ~= 'groovyls' then
-    --   --     print 'returning document_highlight'
-    --   --     -- vim.lsp.buf.document_highlight()
-    --   --     return true
-    --   --   end
-    --   --   print 'not returning document_highlight'
-    --   --   return false
-    --   -- end,
-    -- })
-    --
-    -- vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
-    --   buffer = event.buf,
-    --   callback = vim.lsp.buf.clear_references,
-    --   -- callback = function()
-    --   --   local client = vim.lsp.client()
-    --   --   if client.name ~= 'groovyls' then
-    --   --     -- vim.lsp.buf.clear_references()
-    --   --   end
-    --   -- end,
-    -- })
+    -- Document highlighting: highlight references of the word under cursor on CursorHold.
+    -- Previously configured per-server via on_attach, now consolidated here for all LSPs.
+    if client and client.server_capabilities.documentHighlightProvider then
+      add_doc_highlighting(event.buf)
+    end
+
+    -- ts_ls-specific: OrganizeImports keymap
+    -- NOTE: OrganizeImports was previously configured via lspconfig's `commands` field.
+    -- In vim.lsp.config(), custom commands are not a recognized config field.
+    -- Instead, this is now a keymap (<leader>oi) using vim.lsp.buf.execute_command().
+    -- The original code also had a bug: vim.lsp.Client:exec_cmd() called on the class, not an instance.
+    if client and client.name == 'ts_ls' then
+      map('<leader>oi', function()
+        vim.lsp.buf.execute_command {
+          command = '_typescript.organizeImports',
+          arguments = { vim.api.nvim_buf_get_name(0) },
+        }
+      end, '[O]rganize [I]mports')
+    end
   end,
 })
 
@@ -299,9 +280,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --  - settings (table): Override the default settings passed when initializing the server.
 --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 
--- NOTE: This was coming from a handlers.lua config in custom.configs.handlers
--- but the borders were working without it so I removed the file
-local handlers = {}
+-- NOTE: Per-server `handlers` were previously passed as empty tables from lspconfig.
+-- In vim.lsp.config(), handlers is still supported — add handlers here per-server if needed.
+-- Global handlers can be set via vim.lsp.handlers['textDocument/method'] = ...
+
+-- NOTE: Per-server `on_attach` was previously used in lspconfig to set up doc highlighting.
+-- In vim.lsp.config(), on_attach is still supported but we now consolidate all on_attach
+-- logic into the single LspAttach autocmd above for consistency.
 
 local servers = {
   clangd = {
@@ -332,13 +317,7 @@ local servers = {
   --
   -- If you only have simple needs for typescript, then you can probably just use tsserver
   ts_ls = {
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'tsx' },
-    handlers = handlers,
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentHighlightProvider then
-        add_doc_highlighting(bufnr)
-      end
-    end,
+    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
     init_options = {
       preferences = {
         disableSuggestions = true,
@@ -346,53 +325,13 @@ local servers = {
         importModuleSpecifierEnding = 'js',
       },
     },
-    commands = {
-      OrganizeImports = {
-        organize_imports = function()
-          local params = {
-            command = '_typescript.organizeImports',
-            arguments = { vim.api.nvim_buf_get_name(0) },
-          }
-
-          vim.lsp.Client:exec_cmd(params)
-        end,
-        description = 'Organize Imports',
-      },
-    },
-
-    -- NOTE: inlay hints settings for tsserver is causing errors and the inlays dont work
-    -- settings = {
-    --   typescript = {
-    --     inlayHints = {
-    --       includeInlayParameterNameHints = 'all',
-    --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-    --       includeInlayFunctionParameterTypeHints = true,
-    --       includeInlayVariableTypeHints = true,
-    --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-    --       includeInlayPropertyDeclarationTypeHints = true,
-    --       includeInlayFunctionLikeReturnTypeHints = true,
-    --       includeInlayEnumMemberValueHints = true,
-    --     },
-    --   },
-    --
-    --   javascript = {
-    --     inlayHints = {
-    --       includeInlayParameterNameHints = 'all',
-    --       includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-    --       includeInlayFunctionParameterTypeHints = true,
-    --       includeInlayVariableTypeHints = true,
-    --       includeInlayVariableTypeHintsWhenTypeMatchesName = true,
-    --       includeInlayPropertyDeclarationTypeHints = true,
-    --       includeInlayFunctionLikeReturnTypeHints = true,
-    --       includeInlayEnumMemberValueHints = true,
-    --     },
-    --   },
-    -- },
+    -- NOTE: on_attach (doc highlighting) is now in the LspAttach autocmd above.
+    -- NOTE: OrganizeImports command is now a <leader>oi keymap in the LspAttach autocmd.
+    -- NOTE: inlay hints settings for tsserver were causing errors and are left disabled.
   },
 
   dockerls = {
-    filetypes = { 'Dockerfile' },
-    capabilities = capabilities,
+    filetypes = { 'dockerfile' },
   },
 
   -- groovyls = {
@@ -424,15 +363,6 @@ local servers = {
   -- },
 
   lua_ls = {
-    handlers = handlers,
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentHighlightProvider then
-        add_doc_highlighting(bufnr)
-      end
-    end,
-    -- cmd = {...},
-    -- filetypes { ...},
-    -- capabilities = {},
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT' },
@@ -455,13 +385,6 @@ local servers = {
   },
 
   intelephense = {
-    handlers = handlers,
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentHighlightProvider then
-        add_doc_highlighting(bufnr)
-      end
-    end,
     settings = {
       intelephense = {
         format = {
@@ -550,14 +473,7 @@ local servers = {
   },
 
   graphql = {
-    handlers = handlers,
-    capabilities = capabilities,
-    filetypes = { 'graphql', 'graphqlschema', 'ts', 'tsx', 'typescript', 'typescriptreact' },
-    on_attach = function(client, bufnr)
-      if client.server_capabilities.documentHighlightProvider then
-        add_doc_highlighting(bufnr)
-      end
-    end,
+    filetypes = { 'graphql', 'typescript', 'typescriptreact' },
   },
 }
 
@@ -604,6 +520,10 @@ require('mason').setup()
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 require('mason-lspconfig').setup {
   ensure_installed = {},
+  -- Prevent mason-lspconfig from auto-enabling ALL installed servers.
+  -- Without this, every Mason-installed LSP (tailwindcss, jsonls, pylsp, etc.)
+  -- gets vim.lsp.enable()'d automatically, attaching to buffers you don't want.
+  automatic_enable = false,
 }
 
 -- Set up server configs with vim.lsp.config, mason-lspconfig has removed
@@ -612,6 +532,10 @@ for server_name, config in pairs(servers) do
   config.capabilities = vim.tbl_deep_extend('force', {}, capabilities or {}, config.capabilities or {})
   vim.lsp.config(server_name, config)
 end
+
+-- Enable all configured servers — required in nvim 0.12+.
+-- vim.lsp.config() only registers settings; vim.lsp.enable() activates auto-start on matching filetypes.
+vim.lsp.enable(vim.tbl_keys(servers))
 
 -- Add file types to languages
 vim.filetype.add {

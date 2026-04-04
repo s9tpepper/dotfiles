@@ -1,0 +1,26 @@
+-- NOTE: Oxocarbon disabled in favor of catppuccin. To re-enable, uncomment this
+-- block and comment out the catpuccin.lua file in vimpack/.
+--
+-- vim.pack.add {
+--   'https://github.com/nyoom-engineering/oxocarbon.nvim',
+-- }
+--
+-- vim.opt.termguicolors = true
+-- vim.opt.background = 'dark'
+-- vim.cmd.colorscheme 'oxocarbon'
+--
+-- -- Transparent background
+-- vim.api.nvim_set_hl(0, 'Normal', { bg = 'none' })
+-- vim.api.nvim_set_hl(0, 'NormalFloat', { bg = 'none' })
+--
+-- -- Change Visual mode selected text color
+-- vim.api.nvim_set_hl(0, 'Visual', {
+--   bg = '#ffff89',
+--   fg = '#222222',
+--   reverse = false,
+--   blend = 0,
+--   nocombine = false,
+--   bold = false,
+--   standout = false,
+--   italic = false,
+-- })
